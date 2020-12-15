@@ -10,7 +10,6 @@ def split_train_test(data, div=0.8):
     test = data[split:]
     return train, test
 
-hidden1_size, hidden2_size = 50, 20
 
 file_name = "comb.csv"
 
@@ -24,8 +23,8 @@ df_data = pd.read_csv(file_name, usecols=data_list)  # read the collums from the
 data = df_data.to_numpy()
 state = one_hot_state.to_numpy()  # make a numpy array of states
 
-np.random.shuffle(data)
-np.random.shuffle(state)
+# np.random.shuffle(data)
+# np.random.shuffle(state)
 
 print(data)
 
@@ -38,28 +37,16 @@ print(data)
 
 labels_amount =  state.shape[1] # the amount of labels , to be predicted
 features_amount = len(data_list) # The amount of data that the prediction is going to be made on (raw data)
-learing_rate = 0.001
+learing_rate = 0.0009
 
 #learing_rate = 0.00005
 
+
 x = tf.placeholder(tf.float32, (None, features_amount))
 y_ = tf.placeholder(tf.float32, (None, labels_amount))
-W1 = tf.Variable(tf.truncated_normal([features_amount, hidden1_size], stddev=0.1))
-b1 = tf.Variable(tf.constant(0.1, shape=[hidden1_size]))
-z1 = tf.nn.relu(tf.matmul(x,W1)+b1)
-W2 = tf.Variable(tf.truncated_normal([hidden1_size, hidden2_size], stddev=0.1))
-b2 = tf.Variable(tf.constant(0.1, shape=[hidden2_size]))
-z2 = tf.nn.relu(tf.matmul(z1,W2)+b2)
-W3 = tf.Variable(tf.truncated_normal([hidden2_size, labels_amount], stddev=0.1))
-b3 = tf.Variable(tf.constant(0.1, shape=[labels_amount]))
-y = tf.nn.softmax(tf.matmul(z2, W3) + b3)
-cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
-train_step = tf.train.GradientDescentOptimizer(0.001).minimize(cross_entropy)
-
-
-# W = tf.Variable(tf.zeros((features_amount, labels_amount)))
-# b = tf.Variable(tf.zeros((labels_amount)))  # TODO change it to tf.random.uniform
-# y = tf.nn.softmax(tf.matmul(x, W) + b)
+W = tf.Variable(tf.zeros((features_amount, labels_amount)))
+b = tf.Variable(tf.zeros((labels_amount)))  # TODO change it to tf.random.uniform
+y = tf.nn.softmax(tf.matmul(x, W) + b)
 
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
 
@@ -71,12 +58,14 @@ sess = tf.Session()
 sess.run(init)
 print(data)
 
+# good values itr = 100000 ,learing_rate = 0.0009
+
 
 def show_progress(i):
     print('Iteration:', i, ' loss:',cross_entropy.eval(session=sess, feed_dict={x: train_data, y_: train_states}))
 
 
-for i in range(10000):
+for i in range(100000):
     sess.run(train_step, feed_dict={x: train_data, y_: train_states})  # BGD
     if i %100 ==0 :
         show_progress(i)

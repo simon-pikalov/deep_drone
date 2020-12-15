@@ -13,6 +13,7 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 
+
 for i in range(1000):
     batch_xs, batch_ys = mnist.train.next_batch(100) #MB-GD
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})

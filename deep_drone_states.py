@@ -16,30 +16,35 @@ hidden1_size, hidden2_size = 100, 50
 
 file_name = "comb.csv"
 
-col_list = ["State"]  # define columns to read  from csv TODO add left
-df = pd.read_csv(file_name, usecols=col_list)  # read the collums from the defind col_list
-one_hot_state = pd.get_dummies(df["State"])  # transform the data to be predicted to one hot
+
+
 # one_hot = tf.one_hot(category_indices, unique_category_count) #tensorflow way
 
-data_list = ["VX", "VY", "Range_Front","Range_Right","Range_Left"]  # define columns to read  from csv TODO add left
-df_data = pd.read_csv(file_name, usecols=data_list)  # read the collums from the defind col_list
-data = df_data.to_numpy()
+all_data_list = ["VX", "VY", "Range_Front","Range_Right","Range_Left","State"]  # define columns to read  from csv TODO add left
+feature_list = ["VX", "VY", "Range_Front", "Range_Right", "Range_Left"]
+predict_list = ["State"]
+
+df_data = pd.read_csv(file_name, usecols=all_data_list)  # read the collums from the defind col_list
+df_data = df_data.sample(frac=1) # random the rows
+one_hot_state = pd.get_dummies(df_data["State"])  # transform the data to be predicted to one hot
 state = one_hot_state.to_numpy()  # make a numpy array of states
+feature = df_data[feature_list]
+
 
 # np.random.shuffle(data)
 # np.random.shuffle(state)
 
-print(data)
+print(state)
 
 #state = np.random.shuffle(state)
 
-(train_data, test_data) = split_train_test(data)
+(train_data, test_data) = split_train_test(feature)
 (train_states,test_states) = split_train_test(state)
 
 # front_arr = np.array([front]) if i wont ro predict by one line only need to convert it to a 2d array
 
-labels_amount =  state.shape[1] # the amount of labels , to be predicted
-features_amount = len(data_list) # The amount of data that the prediction is going to be made on (raw data)
+labels_amount =  len(state[0]) # the amount of labels , to be predicted
+features_amount = len(feature_list) # The amount of data that the prediction is going to be made on (raw data)
 learing_rate = 0.0009
 
 
@@ -58,6 +63,9 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=
 train_step = tf.train.GradientDescentOptimizer(0.001).minimize(cross_entropy)
 
 
+# Iteration: 499900  loss: 0.11487787
+# 0.94549763
+
 # W = tf.Variable(tf.zeros((features_amount, labels_amount)))
 # b = tf.Variable(tf.zeros((labels_amount)))  # TODO change it to tf.random.uniform
 # y = tf.nn.softmax(tf.matmul(x, W) + b)
@@ -70,14 +78,14 @@ train_step = tf.train.GradientDescentOptimizer(learing_rate).minimize(cross_entr
 init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
-print(data)
+
 
 
 def show_progress(i):
     print('Iteration:', i, ' loss:',cross_entropy.eval(session=sess, feed_dict={x: train_data, y_: train_states}))
 
 
-for i in range(100000):
+for i in range(500000):
     sess.run(train_step, feed_dict={x: train_data, y_: train_states})  # BGD
     if i %100 ==0 :
         show_progress(i)

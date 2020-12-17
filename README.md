@@ -36,7 +36,12 @@ notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 ![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_gen.png?raw=true)
 
 # How ro run :
-open the ipynb and run all cells.
+
+### jupyter
+open the ipynb in jupyter and run all cells.
+
+### colab
+open this colab notebook : https://colab.research.google.com/drive/190B5cq1sIAHbRchVZ8eZFT8YUaL5pKxI?usp=sharing
 
 # Data sample
 

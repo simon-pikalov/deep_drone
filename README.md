@@ -23,7 +23,6 @@ that	is	a	classification	problem	to	classify	the	wanted	state	based	on	the	lidar
 The	data	is	a	log	file	from	the	drone	that	contains	the	drone	telemetry	and	the	lidars
 (ranges	to	different	directions	)	and	the	wanted	state	that	human	choose	by	vision	for
 the	current	situation.
-The	Data example	:
 notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 
 # The states 
@@ -31,6 +30,10 @@ notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 ### normal - fly with caution because there are near obstacles.
 ### emergency - need to make an immediate change in order not to crush.
 
+
+# Data sample
+
+![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_vis.png?raw=true)
 
 # Show how the data was created.
 ![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_gen.png?raw=true)
@@ -43,7 +46,7 @@ open the ipynb in jupyter and run all cells.
 ### colab
 open this colab notebook : https://colab.research.google.com/drive/190B5cq1sIAHbRchVZ8eZFT8YUaL5pKxI?usp=sharing
 
-#Summary 
+# Summary 
 
 The nn works better even with the same number of epochs 
 from 5,000 and beyond in my case.
@@ -56,9 +59,4 @@ accuracy is : 0.971564
 The best accuracy I achieved is: 0.971564 witch is not bad in my opinion. 
  
 
-
-
-# Data sample
-
-![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_vis.png?raw=true)
 

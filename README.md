@@ -32,9 +32,11 @@ notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 ### emergency - need to make an immediate change in order not to crush.
 
 
-
 # Show how the data was created.
 ![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_gen.png?raw=true)
+
+# How ro run :
+open the ipynb and run all cells.
 
 # Data sample
 

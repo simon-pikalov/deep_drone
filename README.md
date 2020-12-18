@@ -23,7 +23,6 @@ that	is	a	classification	problem	to	classify	the	wanted	state	based	on	the	lidar
 The	data	is	a	log	file	from	the	drone	that	contains	the	drone	telemetry	and	the	lidars
 (ranges	to	different	directions	)	and	the	wanted	state	that	human	choose	by	vision	for
 the	current	situation.
-The	Data example	:
 notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 
 # The states 
@@ -36,13 +35,32 @@ notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 
 
 
+# Data sample
+
+![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_vis.png?raw=true)
+
 # Show how the data was created.
 ![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_gen.png?raw=true)
 
 # How ro run :
-open the ipynb and run all cells.
 
-# Data sample
+### jupyter
+open the ipynb in jupyter and run all cells.
 
-![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_vis.png?raw=true)
+### colab
+open this colab notebook : https://colab.research.google.com/drive/190B5cq1sIAHbRchVZ8eZFT8YUaL5pKxI?usp=sharing
+
+# Summary 
+
+The nn works better even with the same number of epochs 
+from 5,000 and beyond in my case.
+Also, Adam Optimizer dramatically increased the learning speed.
+one more thing I learned is it's very important to use softmax_cross_entropy_with_logits_v2 instead of the croos_entropy because I had a numerical issue with cross_entropy.
+
+Iteration: 899900  loss: 0.020082667
+accuracy is : 0.971564
+
+The best accuracy I achieved is: 0.971564 witch is not bad in my opinion. 
+ 
+
 

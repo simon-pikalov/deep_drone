@@ -31,6 +31,10 @@ notice	that	the	most	right	column	is	the	one	we	want	to	predict.
 ### normal - fly with caution because there are near obstacles.
 ### emergency - need to make an immediate change in order not to crush.
 
+# The neural network Architecture: (5->15->9->3)
+![](photo/nn.JPG)
+
+
 
 # Show how the data was created.
 ![alt text](https://github.com/simon-pikalov/deep_drone/blob/main/photo/data_gen.png?raw=true)
